@@ -1,8 +1,6 @@
-# Automatic Pokemon Breeding for Sword/Shield
+# Automatic Pokemon Releasing for Sword/Shield
 
-I've added multiple loop sequences, dpad buttons, and changed the commands to automatically breed 1 box worth of pokemon.
-
-In order to use this script, you need to use the breeder on route 5.  Set your box so that there's an empty box to the left of the current one.  The current box can also be empty or you can stock it with any amount of eggs.  Stand somewhere in the middle of the road near the bridge, disconnect your controller, and then connect your arduino or whatever compatable device you're using.  You may need to change the number of loops needed for the first and second command sequences depending on what you're breeding and how long it takes to hatch.  Refer to the past projects for more information.
+Make sure boxes are completely filled with only pokemon that you want to release.  Current box should be the left most of the ones you want to release.  First save, then set the cursor to the top left most slot in the box, disconnect your controller, and finally connect the arduino.
 
 ---
 
