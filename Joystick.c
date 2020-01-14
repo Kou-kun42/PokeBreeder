@@ -591,7 +591,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			if (bufindex > (int)( sizeof(first) / sizeof(first[0])) - 1)
 			{
 				// state = CLEANUP;
-				bufindex = 3;
+				bufindex = 2;
 				duration_count = 0;
 				floop++;
 				// Switch set of instructions
