@@ -1,6 +1,8 @@
 # Automatic Pokemon Releasing for Sword/Shield
 
-Make sure boxes are completely filled with only pokemon that you want to release.  Current box should be the left most of the ones you want to release.  First save, then set the cursor to the top left most slot in the box, disconnect your controller, and finally connect the arduino.
+Make sure boxes are completely filled with only pokemon that you want to release.  Current box should be the left most of the ones you want to release.  Change the s_set variable in Joystick.c to however many boxes you want to release.  
+
+To use, first save, then set the cursor to the top left most slot in the box, disconnect your controller, and finally connect the arduino.
 
 ---
 
