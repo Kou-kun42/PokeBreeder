@@ -59,177 +59,124 @@ typedef struct {
 static const command first[] = {
 	// Setup controller
 	{ NOTHING,  100 },
-	{ TRIGGERS,   5 },
+	{ PLUS,       5 },
+	{ NOTHING,   50 },
+	{ PLUS,       5 },
+	{ NOTHING,   50 },
+	{ PLUS,       5 },
 	{ NOTHING,   50 },
 
-	// Run on bridge while pressing A to trigger hatches
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
+	// Release mon
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   40 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   80 },
+	{ A,          5 },
+	{ NOTHING,   15 },
+	// Down to next mon and repeat
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
 
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   40 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   80 },
+	{ A,          5 },
+	{ NOTHING,   15 },
+	
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
 
-	// Date Change
-//	{ HOME,       5 },
-//	{ NOTHING,   50 },
-//	{ DOWN,       5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,     20 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      55 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      23 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      15 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,      5 },
-//	{ NOTHING,   20 },
-//	{ UP,         5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,     23 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ HOME,       5 },
-//	{ NOTHING,   20 },
-//	{ HOME,       5 },
-//	{ NOTHING,   60 },
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   40 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   80 },
+	{ A,          5 },
+	{ NOTHING,   15 },
+	
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
 
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   40 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   80 },
+	{ A,          5 },
+	{ NOTHING,   15 },
+	
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
+
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   40 },
+	{ UP,         5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   80 },
+	{ A,          5 },
+	{ NOTHING,   15 },
+	// Next column
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
+	{ DOWN,       5 }, 
+	{ NOTHING,   10 },
+	{ RIGHT,      5 }, 
+	{ NOTHING,   10 },
 };
 
 // Second set of instructions
 static const command second[] = {
-	// Fly back to breeder
-	{ NOTHING,  140 },
-	{ X,          5 },
-	{ NOTHING,   30 },
-	{ PLUS,       5 },
-	{ NOTHING,  110 },
-	{ DTOPR,      1 },
-	{ NOTHING,   15 },
-	{ A,          5 },
-	{ NOTHING,   25 },
-	{ A,          5 },
-	{ NOTHING,  120 },
-	{ LEFT,      22 },
-	{ UP,         3 },
-
-	// Pick up new egg from breeder
-	{ NOTHING,    5 },
-	{ A,          5 },
-	{ NOTHING,   50 },
-	{ A,          5 },
-	{ NOTHING,   35 },
-	{ B,          5 },
-	{ NOTHING,   25 },
-	{ B,          5 },
-	{ NOTHING,   85 },
-	{ DOWN,       5 }, 
-	{ A,          5 },
-	{ NOTHING,  100 },
-	{ A,          5 },
-	{ NOTHING,  100 },
-	{ A,          5 },
-	{ NOTHING,   25 },
-	{ DOWN,      20 },
-	
+	// Switch to next box
+	{ RIGHT,      5 },
+	{ NOTHING,   10 },
+	{ R,          5 },
+	{ NOTHING,   20 },
 
 };
 
 // Third set of instructions
 static command third[] = {
-	// Swap out newborns for eggs
-	{ NOTHING,   10 },
-	{ X,          5 },
-	{ NOTHING,   30 },
-	{ A,          5 },
-	{ NOTHING,   60 },
-	{ R,          5 },
-	{ NOTHING,   70 },
-	{ L,          5 },
-	{ NOTHING,   20 },
-	{ LEFT,       5 },
-	{ NOTHING,   10 },
-	{ DOWN,       5 },
-	{ NOTHING,   10 },
-	{ Y,          5 },
-	{ NOTHING,    5 },
-	{ Y,          5 },
-	{ NOTHING,    5 },
-	{ A,          5 },
-	{ NOTHING,   10 },
-	{ DOWN,      30 },
-	{ NOTHING,   10 },
-	{ A,          5 },
-	{ NOTHING,   10 },
-	{ DRIGHT,     5 },
-	{ NOTHING,    5 },
-	{ NOTHING,    0 }, // second column in box
-	{ NOTHING,    0 },
-	{ NOTHING,    0 }, // third column in box
-	{ NOTHING,    0 },
-	{ NOTHING,    0 }, // forth column in box
-	{ NOTHING,    0 },
-	{ NOTHING,    0 }, // fifth column in box
-	{ NOTHING,    0 },
-	{ NOTHING,    0 }, // sixth column in box
-	{ NOTHING,    0 },
-	{ UP,         5 },
-	{ NOTHING,   10 },
-	{ A,          5 },
-	{ NOTHING,   20 },
-	{ R,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 },
-	{ NOTHING,   10 },
-	{ DOWN,      30 },
-	{ NOTHING,   10 },
-	{ A,          5 },
-	{ NOTHING,   20 },
-	{ LEFT,      30 },
-	{ NOTHING,   10 },
-	{ DOWN,       5 },
-	{ NOTHING,   10 },
-	{ A,          5 },
-	{ NOTHING,   10 },
-	{ B,          5 },
-	{ NOTHING,   50 },
-	{ B,          5 },
-	{ NOTHING,   50 },
-	{ B,          5 },
-	{ NOTHING,   60 },
-	{ B,          5 },
-	{ NOTHING,   30 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },	
+// Not used for release
 	
 };
 
@@ -369,12 +316,11 @@ int duration_count3 = 0;
 int portsval = 0;
 
 // Number of times the sets will loop before moving to the next
-// These will vary per pokemon
-int f_set = 3;
-int s_set = 8;
+int f_set = 1;
+// Number of boxes you want to release
+int s_set = 5;  
 
-// Loops will end once this is achieved
-// Currently set to complete when a box is filled
+// Not used
 int t_set = 6;
 
 
@@ -439,8 +385,8 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			// End infinite grind after box is filled
-			if (tloop == t_set)
+			// End infinite grind after boxes are released
+			if (sloop == s_set)
 			{
 				while (1) {}
 			}
@@ -620,41 +566,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 				if (sloop == s_set)
 				{
-					setnum = 3;
-					// Change column in box system
-					if (tloop != 0)
-					{
-						if (tloop == 1)
-						{
-							third[25].duration = 5;
-							third[25].button = DRIGHT;
-							third[26].duration = 5;
-						}
-						if (tloop == 2)
-						{
-							third[27].duration = 5;
-							third[27].button = DRIGHT;
-							third[28].duration = 5;
-						}
-						if (tloop == 3)
-						{
-							third[29].duration = 5;
-							third[29].button = DRIGHT;
-							third[30].duration = 5;
-						}
-						if (tloop == 4)
-						{
-							third[31].duration = 5;
-							third[31].button = DRIGHT;
-							third[32].duration = 5;
-						}
-						if (tloop == 5)
-						{
-							third[33].duration = 5;
-							third[33].button = DRIGHT;
-							third[34].duration = 5;
-						}
-					}					
+					setnum = 3;					
 					sloop = 0;
 				}
 				else
