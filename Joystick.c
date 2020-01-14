@@ -174,12 +174,6 @@ static const command second[] = {
 
 };
 
-// Third set of instructions
-static command third[] = {
-// Not used for release
-	
-};
-
 // Main entry point.
 int main(void) {
 	// We'll start by performing hardware and peripheral setup.
@@ -309,25 +303,19 @@ int xpos = 0;
 int ypos = 0;
 int bufindex = 0;
 int bufindex2 = 0;
-int bufindex3 = 0;
 int duration_count = 0;
 int duration_count2 = 0;
-int duration_count3 = 0;
 int portsval = 0;
 
 // Number of times the sets will loop before moving to the next
-int f_set = 1;
+// Set to the 6 columns in a box
+int f_set = 6;
 // Number of boxes you want to release
 int s_set = 5;  
-
-// Not used
-int t_set = 6;
-
 
 // Number of loops completed for each set;
 int floop = 0;
 int sloop = 0;
-int tloop = 0;
 
 // Current set of commands
 int setnum = 1;
@@ -365,7 +353,6 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 		case SYNC_POSITION:
 			bufindex = 0;
 			bufindex2 = 0;
-			bufindex3 = 0;
 
 
 			ReportData->Button = 0;
@@ -396,13 +383,9 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 				butt = first[bufindex].button;
 			}
-			else if (setnum == 2)
-			{
-				butt = second[bufindex2].button;
-			}
 			else
 			{
-				butt = third[bufindex3].button;
+				butt = second[bufindex2].button;
 			}
 
 			switch (butt)
@@ -509,13 +492,9 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 				duration_count++;
 			}
-			else if (setnum == 2)
-			{
-				duration_count2++;
-			}
 			else
 			{
-				duration_count3++;
+				duration_count2++;
 			}
 
 			if (duration_count > first[bufindex].duration)
@@ -529,17 +508,11 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex2++;
 				duration_count2 = 0;	
 			}
-			
-			if (duration_count3 > third[bufindex3].duration)
-			{
-				bufindex3++;
-				duration_count3 = 0;
-			}
 
 			if (bufindex > (int)( sizeof(first) / sizeof(first[0])) - 1)
 			{
 				// state = CLEANUP;
-				bufindex = 3;
+				bufindex = 7;
 				duration_count = 0;
 				floop++;
 				// Switch set of instructions
@@ -563,31 +536,6 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex2 = 0;
 				duration_count2 = 0;
 				sloop++;
-
-				if (sloop == s_set)
-				{
-					setnum = 3;					
-					sloop = 0;
-				}
-				else
-				{
-					setnum = 1;
-				}
-
-					state = BREATHE;
-	
-				ReportData->LX = STICK_CENTER;
-				ReportData->LY = STICK_CENTER;
-				ReportData->RX = STICK_CENTER;
-				ReportData->RY = STICK_CENTER;
-				ReportData->HAT = HAT_CENTER;
-			}
-
-			if (bufindex3 > (int)( sizeof(third) / sizeof(third[0])) - 1)
-			{
-				bufindex3 = 0;
-				duration_count3 = 0;
-				tloop++;
 				setnum = 1;
 
 					state = BREATHE;
