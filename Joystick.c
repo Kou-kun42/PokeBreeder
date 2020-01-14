@@ -60,7 +60,6 @@ static const command first[] = {
 	// Setup controller
 	{ NOTHING,  100 },
 	{ TRIGGERS,   5 },
-	{ NOTHING,   50 },
 
 	// Run on bridge while pressing A to trigger hatches
 	{ RIGHT,      50 },
@@ -69,58 +68,10 @@ static const command first[] = {
 	{ A,           5 },
 	{ RIGHT,      50 },
 	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
-	{ RIGHT,      50 },
-	{ A,           5 },
 	{ LEFT,       50 },
 	{ A,           5 },
 	{ LEFT,       50 },
 	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
-	{ LEFT,       50 },
-	{ A,           5 },
-
-
-	// Date Change
-//	{ HOME,       5 },
-//	{ NOTHING,   50 },
-//	{ DOWN,       5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,     20 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      55 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      23 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ DOWN,      15 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,      5 },
-//	{ NOTHING,   20 },
-//	{ UP,         5 },
-//	{ NOTHING,   20 },
-//	{ RIGHT,     23 },
-//	{ NOTHING,   20 },
-//	{ A,          5 },
-//	{ NOTHING,   20 },
-//	{ HOME,       5 },
-//	{ NOTHING,   20 },
-//	{ HOME,       5 },
-//	{ NOTHING,   60 },
-
 };
 
 // Second set of instructions
@@ -156,7 +107,6 @@ static const command second[] = {
 	{ A,          5 },
 	{ NOTHING,  100 },
 	{ A,          5 },
-	{ NOTHING,   25 },
 	{ DOWN,      20 },
 	
 
@@ -221,16 +171,44 @@ static command third[] = {
 	{ B,          5 },
 	{ NOTHING,   50 },
 	{ B,          5 },
+	{ NOTHING,   70 },
+	{ B,          5 },
+	{ NOTHING,   60 },
+	{ B,          5 },
+	{ NOTHING,   30 },
+	{ B,          5 },	
+	
+};
+
+static const command forth[] = {
+	// Move eggs and change box
+	{ X,          5 },
+	{ NOTHING,   30 },
+	{ A,          5 },
+	{ NOTHING,   60 },
+	{ R,          5 },
+	{ NOTHING,   70 },
+	{ Y,          5 },
+	{ NOTHING,    5 },
+	{ Y,          5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ DOWN,      30 },
+	{ RIGHT,     30 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ R,          5 },
+	{ NOTHING,   20 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ B,          5 },
+	{ NOTHING,   50 },
+	{ B,          5 },
 	{ NOTHING,   50 },
 	{ B,          5 },
 	{ NOTHING,   60 },
 	{ B,          5 },
 	{ NOTHING,   30 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },	
-	
 };
 
 // Main entry point.
@@ -363,25 +341,30 @@ int ypos = 0;
 int bufindex = 0;
 int bufindex2 = 0;
 int bufindex3 = 0;
+int bufindex4 = 0;
 int duration_count = 0;
 int duration_count2 = 0;
 int duration_count3 = 0;
+int duration_count4 = 0;
 int portsval = 0;
 
 // Number of times the sets will loop before moving to the next
 // These will vary per pokemon
-int f_set = 3;
-int s_set = 8;
+int f_set = 6;
+int s_set = 6;
 
-// Loops will end once this is achieved
 // Currently set to complete when a box is filled
 int t_set = 6;
 
+// Loops will end once this is achieved
+// Number of boxes you want to breed
+int fo_set = 1;
 
 // Number of loops completed for each set;
 int floop = 0;
 int sloop = 0;
 int tloop = 0;
+int foloop = 0;
 
 // Current set of commands
 int setnum = 1;
@@ -420,6 +403,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			bufindex = 0;
 			bufindex2 = 0;
 			bufindex3 = 0;
+			bufindex4 = 0;
 
 
 			ReportData->Button = 0;
@@ -454,9 +438,13 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 				butt = second[bufindex2].button;
 			}
-			else
+			else if (setnum == 3)
 			{
 				butt = third[bufindex3].button;
+			}
+			else
+			{
+				butt = forth[bufindex4].button;
 			}
 
 			switch (butt)
@@ -567,9 +555,13 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 				duration_count2++;
 			}
-			else
+			else if (setnum == 3)
 			{
 				duration_count3++;
+			}
+			else
+			{
+				duration_count4++;
 			}
 
 			if (duration_count > first[bufindex].duration)
@@ -588,6 +580,12 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			{
 				bufindex3++;
 				duration_count3 = 0;
+			}
+
+			if (duration_count4 > forth[bufindex4].duration)
+			{
+				bufindex4++;
+				duration_count4 = 0;
 			}
 
 			if (bufindex > (int)( sizeof(first) / sizeof(first[0])) - 1)
@@ -676,6 +674,52 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex3 = 0;
 				duration_count3 = 0;
 				tloop++;
+				
+				if (tloop == t_set)
+				{
+					setnum = 4;
+					tloop = 0;
+
+					third[25].duration = 0;
+					third[25].button = NOTHING;
+					third[26].duration = 0;
+
+					third[27].duration = 0;
+					third[27].button = NOTHING;
+					third[28].duration = 0;
+
+					third[29].duration = 0;
+					third[29].button = NOTHING;
+					third[30].duration = 0;
+
+					third[31].duration = 0;
+					third[31].button = NOTHING;
+					third[32].duration = 0;
+
+					third[33].duration = 0;
+					third[33].button = NOTHING;
+					third[34].duration = 0;
+				}
+				else
+				{
+					setnum = 1;
+				}
+
+					state = BREATHE;
+	
+				ReportData->LX = STICK_CENTER;
+				ReportData->LY = STICK_CENTER;
+				ReportData->RX = STICK_CENTER;
+				ReportData->RY = STICK_CENTER;
+				ReportData->HAT = HAT_CENTER;
+			}
+
+			if (bufindex4 > (int)( sizeof(forth) / sizeof(forth[0])) - 1)
+			{
+				// state = CLEANUP;
+				bufindex4 = 0;
+				duration_count4 = 0;
+				foloop++;
 				setnum = 1;
 
 					state = BREATHE;
