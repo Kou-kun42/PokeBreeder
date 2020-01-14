@@ -1,22 +1,14 @@
-# World of Final Fantasy XP Auto-Grinder
+# Automatic Pokemon Breeding for Sword/Shield
 
-A fork of a fork of a fork, modified to grind XP in a specific location in World of Final Fantasy, to level my character past level 60, so I can max out a few things in the game.
+I've added multiple loop sequences, dpad buttons, and changed the commands to automatically breed 1 box worth of pokemon.
 
-See previous projects for some more detailed information / setup process.
+In order to use this script, you need to use the breeder on route 5.  Set your box so that there's an empty box to the left of the current one.  The current box can also be empty or you can stock it with any amount of eggs.  Stand somewhere in the middle of the road near the bridge, disconnect your controller, and then connect your arduino or whatever compatable device you're using.  You may need to change the number of loops needed for the first and second command sequences depending on what you're breeding and how long it takes to hatch.  Refer to the past projects for more information.
 
 ---
 
-LUFA has been included as a git submodule, so cloning the repo like this:
-
-```
-git clone --recursive git@github.com:bertrandom/snowball-thrower.git
-```
-
-will put LUFA in the right directory.
-
-Now you should be ready to rock. Open a terminal window in the `snowball-thrower` directory, type `make`, and hit enter to compile. If all goes well, the printout in the terminal will let you know it finished the build! Follow the directions on flashing `Joystick.hex` onto your Teensy, which can be found page where you downloaded the Teensy Loader application.
-
 #### Thanks
+
+Thanks to https://github.com/kidGodzilla/woff-grinder for updating the project and enabling the use of Arduinos.
 
 Thanks to https://github.com/bertrandom/snowball-thrower for the updated information which modifies the original script to throw snowballs in Zelda. This C Source is much easier to start from, and has a nice object interface for creating new command sequences.
 
