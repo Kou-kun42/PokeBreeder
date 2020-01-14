@@ -35,11 +35,19 @@ typedef enum {
 	B,
 	L,
 	R,
-	THROW,
+	HOME,
 	NOTHING,
 	PLUS,
 	MINUS,
-	TRIGGERS
+	TRIGGERS,
+	DTOP,
+	DTOPR,
+	DRIGHT,
+	DBOTR,
+	DBOT,
+	DBOTL,
+	DLEFT,
+	DTOPL
 } Buttons_t;
 
 typedef struct {
@@ -47,206 +55,182 @@ typedef struct {
 	uint16_t duration;
 } command; 
 
-static const command step[] = {
+// First set of instructions
+static const command first[] = {
 	// Setup controller
-	{ NOTHING,  250 },
-	{ TRIGGERS,   5 },
 	{ NOTHING,  100 },
 	{ TRIGGERS,   5 },
-	{ NOTHING,  100 },
-	{ A,          5 },
 	{ NOTHING,   50 },
 
-	// Save
+	// Run on bridge while pressing A to trigger hatches
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ RIGHT,      50 },
+	{ A,           5 },
+	{ LEFT,       50 },
+	{ A,           5 },
+	{ LEFT,       50 },
+	{ A,           5 },
+	{ LEFT,       50 },
+	{ A,           5 },
+	{ LEFT,       50 },
+	{ A,           5 },
+
+
+	// Date Change
+//	{ HOME,       5 },
+//	{ NOTHING,   50 },
+//	{ DOWN,       5 },
+//	{ NOTHING,   20 },
+//	{ RIGHT,     20 },
+//	{ NOTHING,   20 },
+//	{ A,          5 },
+//	{ NOTHING,   20 },
+//	{ DOWN,      55 },
+//	{ NOTHING,   20 },
+//	{ A,          5 },
+//	{ NOTHING,   20 },
+//	{ DOWN,      23 },
+//	{ NOTHING,   20 },
+//	{ A,          5 },
+//	{ NOTHING,   20 },
+//	{ DOWN,      15 },
+//	{ NOTHING,   20 },
+//	{ A,          5 },
+//	{ NOTHING,   20 },
+//	{ RIGHT,      5 },
+//	{ NOTHING,   20 },
+//	{ UP,         5 },
+//	{ NOTHING,   20 },
+//	{ RIGHT,     23 },
+//	{ NOTHING,   20 },
+//	{ A,          5 },
+//	{ NOTHING,   20 },
+//	{ HOME,       5 },
+//	{ NOTHING,   20 },
+//	{ HOME,       5 },
+//	{ NOTHING,   60 },
+
+};
+
+// Second set of instructions
+static const command second[] = {
+	// Fly back to breeder
+	{ NOTHING,  140 },
+	{ X,          5 },
+	{ NOTHING,   30 },
+	{ PLUS,       5 },
+	{ NOTHING,  110 },
+	{ DTOPR,      1 },
+	{ NOTHING,   15 },
 	{ A,          5 },
-	{ NOTHING,  100 },
+	{ NOTHING,   25 },
 	{ A,          5 },
 	{ NOTHING,  120 },
+	{ LEFT,      22 },
+	{ UP,         3 },
+
+	// Pick up new egg from breeder
+	{ NOTHING,    5 },
 	{ A,          5 },
-
-	// Walk to the girl
-
-	// Walk left
-	{ LEFT,     135 },
+	{ NOTHING,   50 },
+	{ A,          5 },
+	{ NOTHING,   35 },
+	{ B,          5 },
 	{ NOTHING,   25 },
-
-	// Walk down
-	{ DOWN,      44 },
-	{ NOTHING,   25 },
-
-	// Talk to her
+	{ B,          5 },
+	{ NOTHING,   85 },
+	{ DOWN,       5 }, 
 	{ A,          5 },
-	{ NOTHING,  200 },
-	{ A,          5 },
-	{ NOTHING,  200 },
-
-	// Up 4 times when arrive at menu
-	{ UP,         5 },
-	{ NOTHING,   10 },
-	{ UP,         5 },
-	{ NOTHING,   10 },
-	{ UP,         5 },
-	{ NOTHING,   10 },
-	{ UP,         5 },
-	{ NOTHING,   10 },
-
-	// After the extra quest is unlocked, it's 5
-	{ UP,         5 },
-	{ NOTHING,   10 },
-
-	// After the extra quest is unlocked, it's 6
-	{ UP,         5 },
-	{ NOTHING,   10 },
-
-	// In the Post-game, it's 8
-	{ UP,         5 },
-	{ NOTHING,   10 },
-	{ UP,         5 },
-	{ NOTHING,   10 },
-
-	// Press A to take item
-	{ A,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 },
-	{ NOTHING,   20 },
-
-	// Enter Quest
-	{ A,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 },
-	{ NOTHING,   20 },
-
-	// Wait a while
-	{ NOTHING,  200 },
-	{ NOTHING,  200 },
-
-	// Skip scene
-
-	// Press Plus
-	{ PLUS,       5 },
-	{ NOTHING,   30 },
-	// Press X
-	{ X,          5 },
-	{ NOTHING,   30 },
-	// Press up
-	{ UP,        5 },
-	{ NOTHING,  30 },
-	// Press A
-	{ A,          5 },
-	{ NOTHING,   30 },
-
-	// Wait a while
-	{ NOTHING,  200 },
-	{ NOTHING,  130 },
-
-	// Fast forward a little
-	{ R,         50 },
-	{ NOTHING,   15 },
-
-	// Set up thunder & fire spells
-
-	// First spell
-
-	// L
-	{ L,          5 },
-	{ NOTHING,   15 },
-	// Down
-	{ DOWN,       5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   20 },
-
-	// Wait
-	{ NOTHING,   10 },
-
-	// Second spell
-
-	// L
-	{ L,          5 },
-	{ NOTHING,   15 },
-	// Down
-	{ DOWN,       5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   15 },
-	// A
-	{ A,          5 },
-	{ NOTHING,   10 },
-
-	// Auto battle
-
-	// Press minus
-	{ MINUS,      5 },
-	{ NOTHING,   10 },
-
-	// Hold R for a while
-	{ R,        500 },
-	{ R,        500 },
-	{ R,        380 },
-
-	// If level 50-70, you might need more time in battle
-	// { R,        500 },
-	// { R,        500 },
-	// { R,        500 },
-
-	// Proceed past battle
-
-	// Press A
-	{ A,          5 },
-	{ NOTHING,   30 },
-	{ A,          5 },
-	{ NOTHING,   30 },
-	{ A,          5 },
-	{ NOTHING,   30 },
-	{ A,          5 },
-	{ NOTHING,   30 },
-
-	// Wait a while
-	{ NOTHING,  200 },
-	{ NOTHING,  200 },
 	{ NOTHING,  100 },
+	{ A,          5 },
+	{ NOTHING,  100 },
+	{ A,          5 },
+	{ NOTHING,   25 },
+	{ DOWN,      20 },
+	
 
-	// Skip scene
+};
 
-	// Press Plus
-	{ PLUS,       5 },
-	{ NOTHING,   15 },
-	// Press X
+// Third set of instructions
+static command third[] = {
+	// Swap out newborns for eggs
+	{ NOTHING,   10 },
 	{ X,          5 },
-	{ NOTHING,   15 },
-	// Press up
+	{ NOTHING,   30 },
+	{ A,          5 },
+	{ NOTHING,   60 },
+	{ R,          5 },
+	{ NOTHING,   70 },
+	{ L,          5 },
+	{ NOTHING,   20 },
+	{ LEFT,       5 },
+	{ NOTHING,   10 },
+	{ DOWN,       5 },
+	{ NOTHING,   10 },
+	{ Y,          5 },
+	{ NOTHING,    5 },
+	{ Y,          5 },
+	{ NOTHING,    5 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ DOWN,      30 },
+	{ NOTHING,   10 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ DRIGHT,     5 },
+	{ NOTHING,    5 },
+	{ NOTHING,    0 }, // second column in box
+	{ NOTHING,    0 },
+	{ NOTHING,    0 }, // third column in box
+	{ NOTHING,    0 },
+	{ NOTHING,    0 }, // forth column in box
+	{ NOTHING,    0 },
+	{ NOTHING,    0 }, // fifth column in box
+	{ NOTHING,    0 },
+	{ NOTHING,    0 }, // sixth column in box
+	{ NOTHING,    0 },
 	{ UP,         5 },
-	{ NOTHING,   15 },
-	// Press A
+	{ NOTHING,   10 },
 	{ A,          5 },
 	{ NOTHING,   20 },
-
-	// Wait a while
-	{ NOTHING,  200 },
-	{ NOTHING,  200 },
-	{ NOTHING,  90 },
-
-	// Go back to save point
-	// up
-	{ UP,        26 },
+	{ R,          5 },
+	{ NOTHING,   20 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ DOWN,      30 },
+	{ NOTHING,   10 },
+	{ A,          5 },
+	{ NOTHING,   20 },
+	{ LEFT,      30 },
+	{ NOTHING,   10 },
+	{ DOWN,       5 },
+	{ NOTHING,   10 },
+	{ A,          5 },
+	{ NOTHING,   10 },
+	{ B,          5 },
 	{ NOTHING,   50 },
-	// left
-	{ LEFT,       3 },
+	{ B,          5 },
 	{ NOTHING,   50 },
-
-	// Wait before looping
-	// { NOTHING,   50 },
+	{ B,          5 },
+	{ NOTHING,   60 },
+	{ B,          5 },
+	{ NOTHING,   30 },
+	{ B,          5 },
+	{ NOTHING,   20 },
+	{ B,          5 },
+	{ NOTHING,   20 },	
+	
 };
 
 // Main entry point.
@@ -377,8 +361,33 @@ int report_count = 0;
 int xpos = 0;
 int ypos = 0;
 int bufindex = 0;
+int bufindex2 = 0;
+int bufindex3 = 0;
 int duration_count = 0;
+int duration_count2 = 0;
+int duration_count3 = 0;
 int portsval = 0;
+
+// Number of times the sets will loop before moving to the next
+// These will vary per pokemon
+int f_set = 3;
+int s_set = 8;
+
+// Loops will end once this is achieved
+// Currently set to complete when a box is filled
+int t_set = 6;
+
+
+// Number of loops completed for each set;
+int floop = 0;
+int sloop = 0;
+int tloop = 0;
+
+// Current set of commands
+int setnum = 1;
+
+// Button Identifier
+Buttons_t butt;
 
 // Prepare the next report for the host.
 void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
@@ -409,6 +418,8 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case SYNC_POSITION:
 			bufindex = 0;
+			bufindex2 = 0;
+			bufindex3 = 0;
 
 
 			ReportData->Button = 0;
@@ -428,7 +439,27 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 
 		case PROCESS:
 
-			switch (step[bufindex].button)
+			// End infinite grind after box is filled
+			if (tloop == t_set)
+			{
+				while (1) {}
+			}
+
+
+			if (setnum == 1)
+			{
+				butt = first[bufindex].button;
+			}
+			else if (setnum == 2)
+			{
+				butt = second[bufindex2].button;
+			}
+			else
+			{
+				butt = third[bufindex3].button;
+			}
+
+			switch (butt)
 			{
 
 				case UP:
@@ -479,13 +510,44 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_L;
 					break;
 
-				case THROW:
-					ReportData->LY = STICK_MIN;				
-					ReportData->Button |= SWITCH_R;
+				case HOME:
+					ReportData->Button |= SWITCH_HOME;			
 					break;
 
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
+					break;
+
+				case DTOP:
+					ReportData->HAT = HAT_TOP;				
+					break;
+
+				case DTOPR:
+					ReportData->HAT = HAT_TOP_RIGHT;
+					break;
+
+				case DRIGHT:
+					ReportData->HAT = HAT_RIGHT;
+					break;
+
+				case DBOTR:
+					ReportData->HAT = HAT_BOTTOM_RIGHT;
+					break;
+
+				case DBOT:
+					ReportData->HAT = HAT_BOTTOM;
+					break;
+
+				case DBOTL:
+					ReportData->HAT = HAT_BOTTOM_LEFT;
+					break;
+
+				case DLEFT:
+					ReportData->HAT = HAT_LEFT;
+					break;
+
+				case DTOPL:
+					ReportData->HAT = HAT_TOP_LEFT;
 					break;
 
 				default:
@@ -497,31 +559,132 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					break;
 			}
 
-			duration_count++;
-
-			if (duration_count > step[bufindex].duration)
+			if (setnum == 1)
 			{
-				bufindex++;
-				duration_count = 0;				
+				duration_count++;
+			}
+			else if (setnum == 2)
+			{
+				duration_count2++;
+			}
+			else
+			{
+				duration_count3++;
 			}
 
-
-			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1)
+			if (duration_count > first[bufindex].duration)
 			{
-
-				// state = CLEANUP;
-
-				bufindex = 7;
+				bufindex++;
 				duration_count = 0;
+			}
 
-				state = BREATHE;
+			if (duration_count2 > second[bufindex2].duration)
+			{
+				bufindex2++;
+				duration_count2 = 0;	
+			}
+			
+			if (duration_count3 > third[bufindex3].duration)
+			{
+				bufindex3++;
+				duration_count3 = 0;
+			}
 
+			if (bufindex > (int)( sizeof(first) / sizeof(first[0])) - 1)
+			{
+				// state = CLEANUP;
+				bufindex = 3;
+				duration_count = 0;
+				floop++;
+				// Switch set of instructions
+				if (floop == f_set)
+				{
+					setnum = 2;
+					floop = 0;	
+				}
+	
+					state = BREATHE;
+	
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
 				ReportData->RX = STICK_CENTER;
 				ReportData->RY = STICK_CENTER;
 				ReportData->HAT = HAT_CENTER;
+			}
 
+			if (bufindex2 > (int)( sizeof(second) / sizeof(second[0])) - 1)
+			{
+				bufindex2 = 0;
+				duration_count2 = 0;
+				sloop++;
+
+				if (sloop == s_set)
+				{
+					setnum = 3;
+					// Change column in box system
+					if (tloop != 0)
+					{
+						if (tloop == 1)
+						{
+							third[25].duration = 5;
+							third[25].button = DRIGHT;
+							third[26].duration = 5;
+						}
+						if (tloop == 2)
+						{
+							third[27].duration = 5;
+							third[27].button = DRIGHT;
+							third[28].duration = 5;
+						}
+						if (tloop == 3)
+						{
+							third[29].duration = 5;
+							third[29].button = DRIGHT;
+							third[30].duration = 5;
+						}
+						if (tloop == 4)
+						{
+							third[31].duration = 5;
+							third[31].button = DRIGHT;
+							third[32].duration = 5;
+						}
+						if (tloop == 5)
+						{
+							third[33].duration = 5;
+							third[33].button = DRIGHT;
+							third[34].duration = 5;
+						}
+					}					
+					sloop = 0;
+				}
+				else
+				{
+					setnum = 1;
+				}
+
+					state = BREATHE;
+	
+				ReportData->LX = STICK_CENTER;
+				ReportData->LY = STICK_CENTER;
+				ReportData->RX = STICK_CENTER;
+				ReportData->RY = STICK_CENTER;
+				ReportData->HAT = HAT_CENTER;
+			}
+
+			if (bufindex3 > (int)( sizeof(third) / sizeof(third[0])) - 1)
+			{
+				bufindex3 = 0;
+				duration_count3 = 0;
+				tloop++;
+				setnum = 1;
+
+					state = BREATHE;
+	
+				ReportData->LX = STICK_CENTER;
+				ReportData->LY = STICK_CENTER;
+				ReportData->RX = STICK_CENTER;
+				ReportData->RY = STICK_CENTER;
+				ReportData->HAT = HAT_CENTER;
 			}
 
 			break;
